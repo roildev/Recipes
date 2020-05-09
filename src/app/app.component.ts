@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'RecApp';
+  loadedChoice = 'recipe';
+
+  onNavigate(choice: string) {
+    this.loadedChoice = choice;
+  }
 }
