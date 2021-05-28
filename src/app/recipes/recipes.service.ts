@@ -1,7 +1,9 @@
+import { ShoppingListService } from './../shopping-list/shopping-list.service';
 import { Ingredient } from './../shared/ingredient.model';
 import { Recipe } from './recipe.model';
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
+@Injectable()
 export class RecepisService {
   recipeSelected = new EventEmitter<Recipe>();
 
@@ -15,16 +17,25 @@ export class RecepisService {
     ]),
     new Recipe('Big Fat Burger',
     'Description',
-    'https://lh3.googleusercontent.com/proxy/yKsLvM6OE0ovpAs73VXCbFn-JlxOFLm0iX3nuAQFWoE_Zh-IPhnDfqE6AtUKZe5lJlXdputTIdPsEdJ6gYRNWWXPoi5YH8LKwj-ikgd-_PzDfss9rAfYrYyWtb34ftUEbLks-WRBDVD0cBOTbiPwljTuvtBN971eOYi2B1milFqtMOE076a7skpH06I6p7I',
+    'https://i.insider.com/5d8ca1222e22af53447766c2?width=1100&format=jpeg&auto=webp',
     [
       new Ingredient('Buns', 2),
       new Ingredient('Meat', 1)
     ])
   ];
 
+  constructor(private slService: ShoppingListService) {}
+
   getRecipes() {
     return this.recipes.slice();
   }
 
+  addIngredientsToShopList(ingredients: Ingredient[]) {
+    this.slService.addIngredients(ingredients);
+  }
+
+  getRecipe(index: number) {
+    return this.recipes[index];
+  }
 
 }
